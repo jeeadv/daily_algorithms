@@ -54,3 +54,50 @@ class GFG{
         }
     }
 }
+
+// dp approach
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG{
+    
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int t = Integer.parseInt(st.nextToken());
+        while(t-->0){
+            st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            
+            st = new StringTokenizer(br.readLine());
+            
+            int[] arr = new int[n];
+            for(int i=0;i<n;i++){
+                arr[i] = Integer.parseInt(st.nextToken());
+            }
+            
+            int res = solve(arr,n);
+            System.out.println(res);
+        }
+    }
+    
+    public static int solve(int[] arr, int n){
+        int[] dp = new int[n];
+        int ans = 1;
+        
+        for(int i=0;i<n;i++){
+            int max = 1;
+            for(int j=0;j<i;j++){
+                int len = 1 + dp[j];
+                if(arr[i]>arr[j] && len>max){
+                    max = len;
+                }
+            }
+            dp[i] = max;
+            if(max>ans){
+                ans = max;
+            }
+        }
+        return ans;
+    }
+}
