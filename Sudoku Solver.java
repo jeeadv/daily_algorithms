@@ -10,82 +10,37 @@ class Solution {
 
 	static boolean sudokuSolve(char[][] board) {
 	    int n = board.length;
-	    /*for(int i=0;i<n;i++){
-	    	System.out.println(Arrays.toString(board[i]));
-		}*/
-	    int count = 0;
 	    int l = -1;
 	    int r = -1;
 	    for(int i=0;i<n;i++){
 	      for(int j=0;j<n;j++){
 	        if(board[i][j] == '.'){
-	          count++;
 	          l = i;
 	          r = j;
+            break;
 	        }
 	      }
+        if(l != -1 && r != -1){
+          break;
+        }
 	    }
-	    //System.out.println("count:"+count);
-	    if(count == 0){
+	    
+	    if(l == -1 && r == -1){
 	      return true;
 	    }
-	    
-	    
-	      for(char k='1';k<='9';k++){
-	        if(isSafe(board, k,l,r)){
-	          board[l][r] = k;
-	          if(sudokuSolve(board)){
-	            return true;
-	          }
-	          //else{
-	          board[l][r] = '.';
-	          //}
-	        }
-	      }
-	        
-	      
-	    
+	
+      for(char k='1';k<='9';k++){
+        if(isSafe(board, k,l,r)){
+          board[l][r] = k;
+          if(sudokuSolve(board)){
+            return true;
+          }
+          board[l][r] = '.';
+        }
+      }
 	    return false;
   }
-	
-  static boolean sudokuSolve1(char[][] board) {
-	
-    int n = board.length;
-    /*for(int i=0;i<n;i++){
-    	System.out.println(Arrays.toString(board[i]));
-	}*/
-    int count = 0;
-    for(int i=0;i<n;i++){
-      for(int j=0;j<n;j++){
-        if(board[i][j] == '.'){
-          count++;
-        }
-      }
-    }
-    //System.out.println("count:"+count);
-    if(count == 0){
-      return true;
-    }
-    
-    for(int i=0;i<n;i++){
-      for(int j=0;j<n;j++){
-        if(board[i][j] == '.'){
-          for(char k='9';k>='1';k--){
-            if(isSafe(board, k,i,j)){
-              board[i][j] = k;
-              if(sudokuSolve(board)){
-                return true;
-              }
-              else{
-                board[i][j] = '.';
-              }
-            }
-          }
-        }
-      }
-    }
-    return false;
-  }
+
   static boolean isSafe(char[][] board, char k, int r, int c){
     int n = board.length;
     for(int j=0;j<n;j++){
