@@ -3,22 +3,22 @@
 
 class Solution {
     public boolean isMatch(String s, String p) {
-      if(s == null || p == null){
-		   return false;
-	   }
-	   int m = s.length();
-	   int n = p.length();
-	   return f(s, p, m-1, n-1);
+      	if(s == null || p == null){
+	return false;
+	}
+	int m = s.length();
+	int n = p.length();
+	return f(s, p, m-1, n-1);
     }
     
     public boolean f(String s, String p, int i, int j){
 	   
-	   if(i == -1){
-		   return (j == -1) || checkStar(p, j) ? true : false;
-	   }
-       if(i <0 || j<0){
-           return false;
-       }
+	if(i == -1){
+	   return (j == -1) || checkStar(p, j) ? true : false;
+	}
+	if(i < 0 || j < 0){
+	   return false;
+	}
 	  
 	   if(p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'){
 		   return f(s, p, i-1, j-1);
