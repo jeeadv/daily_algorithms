@@ -24,11 +24,8 @@ class Solution {
         int j = arr[i];
         while(j<n && arr[j] != j){
           int temp = arr[j];
-          if(arr[j] < n){
-            arr[j] = arr[arr[j]];
-            arr[arr[j]] = temp;
-          }
-          j = arr[j];
+          arr[j] = j;
+          j = temp;
         }
       }
     }
