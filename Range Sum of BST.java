@@ -71,3 +71,42 @@ class Solution {
         return sum;
     }
 }
+// 2nd iterative
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int rangeSumBST(TreeNode root, int L, int R) {
+        if(root == null){
+            return 0;
+        }
+        
+        Stack<TreeNode> s = new Stack<>();
+        s.push(root);
+        
+        int sum = 0;
+        TreeNode top = null;
+        while(!s.isEmpty()){
+            top = s.pop();
+            if(top.val >= L && top.val <= R){
+                sum += top.val;
+            }
+            if(top.val > L){
+                if(top.left != null)
+                    s.push(top.left);
+            }
+            if(top.val < R){
+                if(top.right != null)
+                    s.push(top.right);
+            }
+        }
+        return sum;
+    }
+}
