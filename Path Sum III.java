@@ -10,6 +10,43 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+// O(n)
+class Solution {
+    int ans = 0;
+    public int pathSum(TreeNode root, int sum) {
+        HashMap<Integer, Integer> prefixMap = new HashMap<>();
+        prefixMap.put(0, 1);
+        
+        return fun(root, 0, sum, prefixMap);
+    }
+    
+    public int fun(TreeNode root, int currSum, int sum, HashMap<Integer, Integer> prefixMap){
+        if(root == null){
+           return 0;
+        }
+        currSum += root.val;
+        int res = prefixMap.getOrDefault(currSum - sum, 0);
+        
+        prefixMap.put(currSum, prefixMap.getOrDefault(currSum,0) + 1);
+        
+        res += fun(root.left, currSum, sum, prefixMap) + fun(root.right, currSum, sum, prefixMap);
+        
+        prefixMap.put(currSum, prefixMap.get(currSum) - 1);
+        
+        return res;
+    }
+}
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+// O(n^2)
 class Solution {
     int ans = 0;
     public int pathSum(TreeNode root, int sum) {
