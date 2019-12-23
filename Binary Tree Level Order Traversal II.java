@@ -29,3 +29,42 @@ class Solution {
         fun(root.right, level + 1, list);
     }
 }
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> list = new LinkedList<>();
+        
+        if(root == null){
+            return list;
+        }
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            List<Integer> subList = new LinkedList<>();
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                TreeNode top = q.poll();
+                subList.add(top.val);
+                if(top.left != null)
+                    q.add(top.left);
+                if(top.right != null)
+                    q.add(top.right);
+                
+            }
+            list.addFirst(subList);
+        }
+        
+        return list;
+    }
+}
