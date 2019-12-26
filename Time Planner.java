@@ -5,8 +5,26 @@ import java.io.*;
 import java.util.*;
 
 class Solution {
-
+  
   static int[] meetingPlanner(int[][] slotsA, int[][] slotsB, int dur) {
+    int i = 0;
+    int j = 0;
+    while(i < slotsA.length && j < slotsB.length){
+      int start = Math.max(slotsA[i][0], slotsB[j][0]);
+      int end = Math.min(slotsA[i][1], slotsB[j][1]);
+      if(end >= start + dur){
+        return new int[]{start, start + dur};
+      }
+      else if(slotsA[i][1] < slotsB[j][1]){
+        i++;
+      }
+      else{
+        j++;
+      }
+    }
+    return new int[]{};
+  }
+  static int[] meetingPlanner1(int[][] slotsA, int[][] slotsB, int dur) {
     List<List<Integer>> list = new LinkedList<>();
     for(int i=0;i<slotsA.length;i++){
       find(slotsA[i], slotsB, list);
