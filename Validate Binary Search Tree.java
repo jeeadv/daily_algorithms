@@ -12,7 +12,44 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return preorderIterative(root, null, null);
+        return inorderIterative(root);
+    }
+    public boolean inorderIterative(TreeNode root){
+        if(root == null){
+            return true;
+        }
+        Integer prev = null;
+        Stack<TreeNode> stack = new Stack<>();
+    
+        while(root != null || !stack.isEmpty()){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            TreeNode top = stack.pop();
+            if(prev != null && top.val <= prev){
+                return false;
+            }
+            prev = top.val;
+            root = top.right;
+        }
+        return true;
+    }
+    public boolean inorderRecursive(TreeNode root, Integer[] prev){
+        if(root == null){
+            return true;
+        }
+        
+        if(!inorderRecursive(root.left, prev)){
+            return false;
+        }
+        
+        if(prev[0] != null && root.val <= prev[0]){
+            return false;
+        }
+        prev[0] = root.val;
+        
+        return inorderRecursive(root.right, prev);
     }
     public boolean preorderIterative(TreeNode root, Integer min, Integer max){
         if(root == null){
