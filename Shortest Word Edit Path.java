@@ -9,9 +9,15 @@ class Solution {
 	static int shortestWordEditPath(String source, String target, String[] words) {
     return bfs(words, source, target);
 	}
+  
   static int bfs(String[] words, String src, String trg){
     int n = words.length;
-	  HashSet<String> set = new HashSet<>();
+	  HashSet<String> visited = new HashSet<>();
+    HashSet<String> wordSet = new HashSet<>();
+    for(String word: words){
+      wordSet.add(word);
+    }
+    System.out.println("word set:"+wordSet);
     int level = 0;
     
     Queue<String> queue = new LinkedList<>();
@@ -24,15 +30,32 @@ class Solution {
         if(trg.equals(top)){
           return level;
         }
-        set.add(top);
-        for(int j = 0;j<n;j++){
-          if(isNeighbour( top, words[j], set)){
+        visited.add(top);
+        //System.out.println();
+        //System.out.print(top + "->");
+        //method 1
+        /*for(int j = 0;j<n;j++){
+          if(isNeighbour(top, words[j], set)){
             queue.add(words[j]);
+          }
+        }*/
+        //method 2
+        StringBuffer neighbour = new StringBuffer(top);
+        for(int j=0;j<neighbour.length();j++){
+          for(char k='a';k<='z';k++){
+            neighbour.setCharAt(j, k);
+            if(wordSet.contains(neighbour.toString()) && !visited.contains(neighbour.toString())){
+              //System.out.print(neighbour + " ");
+              queue.add(neighbour.toString());
+            }
+        
+            neighbour.setCharAt(j, top.charAt(j));
           }
         }
       }
       level++;
     }
+    
     return -1;
   }
   
