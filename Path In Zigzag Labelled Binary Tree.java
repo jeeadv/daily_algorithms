@@ -5,6 +5,33 @@ class Solution {
     public List<Integer> pathInZigZagTree(int n) {
         LinkedList<Integer> list = new LinkedList<>();
         
+        while(n > 1){
+            list.addFirst(n);
+            n = n/2;
+            n = inverse(n);
+        }
+        list.addFirst(1);
+        return list;
+    }
+    
+    public int inverse(int n){
+        int res = 0;
+        int base = 1;
+        while(n > 1){
+            int d = n % 2;
+            if(d == 0){
+                res += base;
+            }
+            base *= 2;
+            n /= 2;
+        }
+        res += base;
+        return res;
+    }
+    
+    public List<Integer> pathInZigZagTree1(int n) {
+        LinkedList<Integer> list = new LinkedList<>();
+        
         String binary = dToB(n);
         System.out.println(binary);
         
