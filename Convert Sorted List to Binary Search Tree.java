@@ -19,26 +19,59 @@
  * }
  */
 class Solution {
+    ListNode head = null;
+    
     public TreeNode sortedListToBST(ListNode head) {
+        this.head = head;
+        return inorder(0, findSize(head) - 1);
+    }
+    
+    public int findSize(ListNode head){
+        int size = 0;
+        while(head != null){
+            size++;
+            head = head.next;
+        }
+        return size;
+    }
+    
+    public TreeNode inorder(int l, int r){
+        if(l > r){
+            return null;
+        }
+        int mid = (l + r) / 2;
+        TreeNode left = inorder(l, mid - 1);
+        
+        TreeNode root = new TreeNode(this.head.val);
+        root.left = left;
+        
+        this.head = this.head.next;
+        
+        root.right = inorder(mid + 1, r);
+
+        return root;
+    }
+    
+    public TreeNode sortedListToBST1(ListNode head) {
         List<Integer> list = new ArrayList<>();
         while(head != null){
             list.add(head.val);
             head = head.next;
         }
         TreeNode root = null;
-        root = fun(list, 0, list.size() - 1);
+        root = preorder(list, 0, list.size() - 1);
         return root;
     }
     
-    public TreeNode fun(List<Integer> list, int l, int r){
+    public TreeNode preorder(List<Integer> list, int l, int r){
         if(l > r){
             return null;
         }
         
         int mid = (l + r) / 2;
         TreeNode root = new TreeNode(list.get(mid));
-        root.left = fun(list, l, mid - 1);
-        root.right = fun(list, mid + 1, r);
+        root.left = preorder(list, l, mid - 1);
+        root.right = preorder(list, mid + 1, r);
         
         return root;
     }
