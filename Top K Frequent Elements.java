@@ -41,3 +41,41 @@ class Solution {
         }
     }
 }
+
+
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < nums.length; i++){
+            if(map.get(nums[i]) == null){
+                map.put(nums[i], 1);   
+            }
+            else{
+                map.put(nums[i], map.get(nums[i]) + 1);
+            }
+        }
+        
+        List<Integer>[] bucket = new List[nums.length + 1];
+        
+        map.forEach((key, val) -> {
+            if(bucket[val] == null){
+                bucket[val] = new LinkedList<>();
+            }
+            
+            bucket[val].add(key);
+        });
+        
+        List<Integer> list = new LinkedList<>();
+        
+        for(int i = bucket.length - 1; i >=0 && list.size() < k; i--){
+            if(bucket[i] != null){
+                int size = bucket[i].size() < k - list.size() ? bucket[i].size() :  k - list.size();
+                list.addAll(bucket[i].subList(0, size));
+            }
+        }
+        
+        return list;
+    }
+    
+}
