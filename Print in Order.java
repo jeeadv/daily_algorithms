@@ -39,3 +39,49 @@ class Foo {
         }
     }
 }
+
+
+class Foo {
+
+    public Foo() {
+        
+    }
+    
+    public static int step = 1;
+
+    public void first(Runnable printFirst) throws InterruptedException {
+        synchronized(this) {
+            while(step != 1) {
+                this.wait();
+            }
+            
+            printFirst.run();
+            step = 2;
+            this.notifyAll();
+        }
+    }
+
+    public void second(Runnable printSecond) throws InterruptedException {
+        synchronized(this) {
+            while(step != 2) {
+                this.wait();
+            }
+            
+            printSecond.run();
+            step = 3;
+            this.notifyAll();
+        }
+    }
+
+    public void third(Runnable printThird) throws InterruptedException {
+        synchronized(this) {
+            while(step != 3) {
+                this.wait();
+            }
+            
+            printThird.run();
+            step = 1;
+            this.notifyAll();
+        }
+    }
+}
