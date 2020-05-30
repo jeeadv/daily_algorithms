@@ -1,5 +1,7 @@
 //Longest Increasing Subsequence
 //https://leetcode.com/problems/longest-increasing-subsequence/
+//https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+//https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
 
 //brute force
 class Solution {
