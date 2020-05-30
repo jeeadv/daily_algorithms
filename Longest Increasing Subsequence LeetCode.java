@@ -27,3 +27,28 @@ class Solution {
         return max + 1;
     }
 }
+
+// dp 
+
+class Solution {
+    int globalMax = 0;
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[] lis = new int[n];
+        
+        for(int i = 0; i < n; i++) {
+            int max = 0;
+            for(int j = 0; j < i; j++) {
+                if(nums[i] > nums[j])
+                    max = Math.max(max, lis[j]);
+            }
+            lis[i] = max + 1;
+        }
+        
+        int max = 0;
+        for(int i = 0; i < n; i++) {
+            max = Math.max(max, lis[i]);
+        }
+        return max;
+    }
+}
