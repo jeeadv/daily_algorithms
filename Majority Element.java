@@ -30,3 +30,31 @@ class Solution {
         return maxe;
     }
 }
+
+// moore's voting algorithm
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        
+        int candidate = nums[0];
+        int count = 1;
+        
+        for(int i = 1; i < nums.length; i++) {
+            
+            if(nums[i] == candidate) {
+                count++;
+            }
+            else {
+                if(count > 0) {
+                    count--;
+                }
+                else {
+                    count = 1;
+                    candidate = nums[i];
+                }
+            }
+        }
+        
+        return candidate;
+    }
+}
