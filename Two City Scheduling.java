@@ -31,5 +31,63 @@ class Solution {
 }
 
 
-//dp
+//counting sort
+
+class Solution {
+    public int twoCitySchedCost(int[][] costs) {
+        
+        List<Integer>[] prev = new ArrayList[1001];
+        List<Integer>[] next = new ArrayList[1001];
+        
+        for(int i = 0; i < costs.length; i++) {
+            int diff = costs[i][1] - costs[i][0];
+            
+            if(diff >= 0) {
+                if(next[diff] == null) {
+                    next[diff] = new ArrayList<>();
+                }
+                next[diff].add(i);
+            }
+            else {
+                if(prev[-diff] == null) {
+                    prev[-diff] = new ArrayList<>();
+                }
+                prev[-diff].add(i);
+            }
+        }
+        
+        int count = 0;
+        int sum = 0;
+        
+        for(int i = 1000; i > 0; i--) {
+            List<Integer> list = prev[i] == null ? new ArrayList<>() : prev[i];
+            
+            for(int index: list) {
+                if(count < costs.length / 2) {
+                    sum += costs[index][1];
+                }
+                else {
+                    sum += costs[index][0];
+                }
+                count++;
+            }
+        }
+        
+        for(int i = 0; i < 1001; i++) {
+            List<Integer> list = next[i] == null ? new ArrayList<>() : next[i];
+            
+            for(int index: list) {
+                if(count < costs.length / 2) {
+                    sum += costs[index][1];
+                }
+                else {
+                    sum += costs[index][0];
+                }
+                count++;
+            }
+        }
+        
+        return sum;
+    }
+}
 
