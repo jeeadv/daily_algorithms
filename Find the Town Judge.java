@@ -20,3 +20,24 @@ class Solution {
         return -1;
     }
 }
+
+//another
+
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        int[] knownTo = new int[N + 1];
+        
+        for(int i = 0; i < trust.length; i++) {
+            knownTo[trust[i][1]]++;
+            knownTo[trust[i][0]]--;
+        }
+        
+        for(int i = 1; i <= N; i++) {
+            if(knownTo[i] == N - 1) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+}
