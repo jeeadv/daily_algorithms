@@ -1,6 +1,8 @@
 //Coin Change
 //https://leetcode.com/problems/coin-change/
+
 //recursive with memoization
+//bottom up recursion
 class Solution {
     
     int[] arr;
