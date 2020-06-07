@@ -1,6 +1,31 @@
 //Coin Change
 //https://leetcode.com/problems/coin-change/
 
+// top down recursive
+
+class Solution {
+    
+    public int coinChange(int[] coins, int amount) {
+        min = Integer.MAX_VALUE;
+        fun(0, coins, amount);
+        return min == Integer.MAX_VALUE ? -1 : min;
+    }
+    
+    public void fun(int height, int[] coins, int amount) {
+        if(amount < 0) {
+            return;
+        }
+        
+        if(amount == 0) {
+            min = Math.min(min, height);
+        }
+        
+        for(int i = 0; i < coins.length; i++) {
+            fun(height + 1, coins, amount - coins[i]);
+        }
+    }
+}
+
 //recursive with memoization
 //bottom up recursion
 class Solution {
