@@ -97,3 +97,22 @@ class Solution {
         return arr[amount] == amount + 1 ? -1 : arr[amount];
     }
 }
+
+// another
+
+class Solution {
+    
+    public int coinChange(int[] coins, int amount) {
+        int[] arr = new int[amount + 1];
+        Arrays.fill(arr, amount + 1);
+        arr[0] = 0;
+        
+        for(int i = 0; i < coins.length; i++) {
+            for(int j = coins[i]; j <= amount; j++) {
+                arr[j] = Math.min(arr[j], arr[j - coins[i]] + 1);
+            }
+        }
+        
+        return arr[amount] == amount + 1 ? -1 : arr[amount];
+    }
+}
