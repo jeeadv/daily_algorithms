@@ -27,3 +27,23 @@ class Solution {
         return dp[amount][i] = fun(amount - coins[i], coins, i) + fun(amount, coins, i + 1);
     }
 }
+
+
+// dp bottom up
+
+class Solution {
+    Integer[][] dp;
+    
+    public int change(int amount, int[] coins) {
+        int[] arr = new int[amount + 1];
+        arr[0] = 1;
+        
+        for(int coin: coins) {
+            for(int i = coin; i <= amount; i++) {
+                arr[i] += arr[i - coin];
+            }
+        }
+        return arr[amount];
+    }
+    
+}
