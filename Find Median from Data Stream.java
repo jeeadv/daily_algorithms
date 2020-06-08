@@ -51,3 +51,78 @@ class MedianFinder {
         } 
     }
 }
+
+// sorting at each step
+
+class MedianFinder {
+
+    List<Integer> list;
+        
+    public MedianFinder() {
+        list = new ArrayList<>();
+    }
+    
+    public void addNum(int num) {
+        list.add(num);
+    }
+    
+    public double findMedian() {
+        Collections.sort(list);
+        
+        if(list.size() % 2 == 1) {
+            return list.get(list.size()/2);
+        }
+        else {
+            double sum = list.get((list.size() - 1)/2) + list.get((list.size() + 1)/2);
+            return sum / 2.0;
+        }
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
+
+// insertion at each step assuming previous arr is sorted.
+
+class MedianFinder {
+
+    List<Integer> list;
+        
+    public MedianFinder() {
+        list = new ArrayList<>();
+    }
+    
+    public void addNum(int num) {
+        insert(num);
+    }
+    
+    public double findMedian() {
+        if(list.size() % 2 == 1) {
+            return list.get(list.size()/2);
+        }
+        else {
+            double sum = list.get((list.size() - 1)/2) + list.get((list.size() + 1)/2);
+            return sum / 2.0;
+        }
+    }
+    
+    public void insert(int num) {
+        int i = 0;
+        
+        while(i < list.size() && list.get(i) < num) {
+            i++;
+        }
+        list.add(i, num);
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
