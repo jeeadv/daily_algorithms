@@ -43,3 +43,26 @@ class Solution {
         return count == 1;
     }
 }
+
+// dp and binarySearch
+
+class Solution {
+    static int[] arr = new int[32];
+    
+    static {
+        arr[0] = 1;
+        for(int i = 1; i < 32; i++) {
+            arr[i] = arr[i - 1] * 2;
+        }
+    }
+    
+    public boolean isPowerOfTwo(int n) {
+        int index = Arrays.binarySearch(arr, n);
+        if(index >= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
