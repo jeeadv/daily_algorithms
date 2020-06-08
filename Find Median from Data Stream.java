@@ -126,3 +126,54 @@ class MedianFinder {
  * obj.addNum(num);
  * double param_2 = obj.findMedian();
  */
+
+// Balanced BST solution
+
+class MedianFinder {
+    
+    TreeSet<Integer> set;
+    
+    public MedianFinder() {
+        set = new TreeSet<Integer>();
+    }
+    
+    public void addNum(int num) {
+        set.add(num);
+    }
+    
+    public double findMedian() {
+        Integer ans;
+        
+        if(set.size() % 2 == 1) {
+            ans = getTreeRoot(set);
+        }
+        else {
+            ans = 0;
+        }
+        return Double.valueOf(ans);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static Integer getTreeRoot(TreeSet<Integer> ts) {
+        try {
+            java.lang.reflect.Field mField = TreeSet.class.getDeclaredField("m");
+            mField.setAccessible(true);
+            return getTreeRoot((TreeMap<Integer, Object>) mField.get(ts));
+        } 
+        catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new IllegalStateException("Internals of TreeSet has changed", e);
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static <K,V> K getTreeRoot(TreeMap<K,V> tm) {
+        try {
+            java.lang.reflect.Field rootField = TreeMap.class.getDeclaredField("root");
+            rootField.setAccessible(true);
+            Map.Entry<K,V> root = (Map.Entry<K,V>) rootField.get(tm);
+            return (root == null ? null : root.getKey());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new IllegalStateException("Internals of TreeMap has changed", e);
+        }
+    }
+}
