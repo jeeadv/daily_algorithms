@@ -1,6 +1,54 @@
 //Find Median from Data Stream
 //https://leetcode.com/problems/find-median-from-data-stream/
 
+// c++ multiset solution
+class MedianFinder {
+public:
+    multiset<int> tree;
+    std::multiset<int>::iterator mid;
+    
+    MedianFinder() {
+        mid = tree.begin();
+    }
+    
+    void addNum(int num) {
+        if(tree.size() == 0) {
+            mid = tree.insert(num);
+            return;
+        }
+        if(tree.size() % 2 == 0) {
+            tree.insert(num);
+            if(num < *mid) {
+                mid--;
+            }
+        }
+        else {
+            tree.insert(num);
+            if(num > *mid || num == *mid) {
+                mid++;
+            }
+        }
+    }
+    
+    double findMedian() {
+        if(tree.size() % 2 == 1) {
+            return double(*mid);
+        }
+        else {
+            double a = double(*mid);
+            double b = double(*prev(mid, 1));
+            return (a + b) / 2;
+        }
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
+
 // 2 priority queue (heap) solution
 
 class MedianFinder {
