@@ -1,6 +1,48 @@
 //Sliding Window Median
 //https://leetcode.com/problems/sliding-window-median/
 
+// c++ multiset (balanced bst)
+class Solution {
+public:
+    vector<double> medianSlidingWindow(vector<int>& nums, int k) {
+        multiset<int> tree(nums.begin(), nums.begin() + k);
+        vector<double> result;
+        auto mid = next(tree.begin(), k / 2);
+        if(k % 2 == 1) {
+            result.push_back(*mid);
+        }
+        else {
+            double a = double(*mid);
+            double b = double(*prev(mid, 1));
+            result.push_back((a + b) / 2);
+        }
+        
+        for(int i = k; i < nums.size(); i++) {
+            
+            tree.insert(nums[i]);
+            if(nums[i] < *mid) {
+                mid--;
+            }
+            
+            if(nums[i - k] <= *mid) {
+                mid++;
+            }
+            tree.erase(tree.lower_bound(nums[i - k]));
+            
+            if(k % 2 == 1) {
+                result.push_back(*mid);
+            }
+            else {
+                double a = double(*mid);
+                double b = double(*prev(mid, 1));
+                result.push_back((a + b) / 2);
+            }
+            
+        }
+        return result;
+    }
+};
+
 // 2 treeset solution
 class Solution {
     public double[] medianSlidingWindow(int[] nums, int k) {
