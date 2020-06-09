@@ -47,3 +47,21 @@ class Solution {
         return isPowerOfFour(num / 4);
     }
 }
+
+// hashing
+class Solution {
+    static Set<Integer> set = new HashSet<>();
+    
+    static {
+        int count = 1;
+        for(int i = 0; i <= 15; i++) {
+            set.add(count);
+            count *= 4;
+        }
+        
+    }
+    
+    public boolean isPowerOfFour(int num) {
+        return set.contains(num);
+    }
+}
