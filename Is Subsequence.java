@@ -1,6 +1,20 @@
 //Is Subsequence
 //https://leetcode.com/problems/is-subsequence/
 
+//index lookup
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int index = -1;
+        for(char c: s.toCharArray()) {
+            index = t.indexOf(c, index + 1);
+            if(index == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 //2 pointer
 class Solution {
     public boolean isSubsequence(String s, String t) {
