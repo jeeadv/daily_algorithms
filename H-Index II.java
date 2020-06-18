@@ -1,5 +1,6 @@
 //H-Index II
 //https://leetcode.com/explore/challenge/card/june-leetcoding-challenge/541/week-3-june-15th-june-21st/3364/
+//https://leetcode.com/problems/h-index/submissions/
 
 class Solution {
     public int hIndex(int[] citations) {
@@ -11,3 +12,4 @@ class Solution {
         return max;
     }
 }
+
