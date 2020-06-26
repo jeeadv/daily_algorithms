@@ -10,6 +10,8 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+//top down
 class Solution {
     
     public int sumRootToLeaf(TreeNode root) {
@@ -60,5 +62,74 @@ class Solution {
         }
         System.out.println(sum);
         return sum;
+    }
+}
+
+// top down then bottom up
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        return fun(root, 0);
+    }
+    
+    public int fun(TreeNode root, int num) {
+        if(root == null) {
+            return 0;
+        }
+        if(root.left == null && root.right == null) {
+            return num * 10 + root.val;
+        }
+        return fun(root.left, num * 10 + root.val) + fun(root.right, num * 10 + root.val);
+    }
+}
+
+// top down
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    static int res = 0;
+    public int sumNumbers(TreeNode root) {
+        res = 0;
+        fun(root, 0);
+        return res;
+    }
+    
+    public void fun(TreeNode root, int num) {
+        if(root == null) {
+            return;
+        }
+        if(root.left == null && root.right == null) {
+            res += num * 10 + root.val;
+            return;
+        }
+        fun(root.left, num * 10 + root.val);
+        fun(root.right, num * 10 + root.val);
     }
 }
